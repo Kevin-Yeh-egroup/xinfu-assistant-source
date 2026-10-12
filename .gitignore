@@ -1,0 +1,28 @@
+# 建置與測試產出（由 npm run build / npm test 產生）
+node_modules/
+dist/
+site/
+.test-output/
+.vercel/
+
+# 審查通行碼本身不能進 repo（src/gate.json 只放雜湊）
+secrets/
+*.code.txt
+
+# 官方範本原始檔不放在 repo（見 templates/README.md）
+templates/src/
+templates/conv/
+
+# 影片製作的中間檔
+video/assets/
+video/out/
+video/tmp/
+video/stage-*.html
+
+# 系統與編輯器
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

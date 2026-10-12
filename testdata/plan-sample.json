@@ -1,0 +1,49 @@
+{
+ "_note": "虛構的示範個案，用來測試「計畫書與附件」產生檔案。",
+ "applyDate": "2026-10-20",
+ "p": {"name": "王小美", "birth": "1985-03-12", "phone": "02-2345-6789", "mobile": "0912-345-678", "email": "xiaomei@example.com", "fax": "", "emName": "王大明", "emRel": "配偶", "emPhone": "0933-222-111"},
+ "biz": {"name": "小美早餐店", "reg": "prep", "setup": "", "kind": "", "regNo": "", "regDoc": "", "taxNo": "", "regPlan": "115/12", "type": "1", "typeOther": "",
+  "addr": {"company": {"zip": "231", "text": "新北市新店區民權路 100 號 1 樓（承租 12 坪，月租 18,000 元）", "tel": "02-2911-0000"}, "factory": {"zip": "", "text": "", "tel": ""}, "other": {"zip": "", "text": "", "tel": ""}},
+  "product": "早餐、手作三明治、蛋餅、飲品", "staff": "0",
+  "feature": "蛋餅皮每天手工現做，食材當天早上到市場採買；價格比連鎖店便宜 10～15 元。",
+  "customer": "附近上班族、學生和社區長輩，平日早上 6 點到 10 點最多人。",
+  "sales": "店面現場販售為主，接受 LINE 預訂和附近公司團購外送。",
+  "focus": "1. 增加飯糰、燕麥飲等品項，提高客單價。\n2. 和固定的蔬菜、雞蛋供應商談月結，穩定進貨成本。\n3. 每月檢討帳務，控制食材耗損。"},
+ "purpose": "先生收入不穩定，兩個孩子還在讀國小。我做早餐十年，想開自己的小店，時間能配合接送孩子，也讓家裡有穩定收入。",
+ "advantage": "曾在早餐連鎖店工作 8 年，負責備料和櫃台，熟悉製作流程與成本控制；先生假日可以幫忙外送；附近社區已有固定熟客。",
+ "inv": {"self": "80000", "rosca": "", "family": "50000", "bank": "0", "other": "", "otherName": ""},
+ "noDebt": false,
+ "debts": [
+  {"id": "d1", "who": "self", "name": "", "creditor": "台新銀行", "kind": "信用卡", "total": "60000", "reason": "孩子學費與生活費週轉", "date": "112年8月", "rate": "年利率 15%", "freq": "每月", "per": "3000", "status": "本息償還", "note": "已還 12 期", "remain": "36000"},
+  {"id": "d2", "who": "family", "name": "配偶 王大明", "creditor": "和潤企業", "kind": "汽機車貸款", "total": "300000", "reason": "購買送貨用機車與汽車", "date": "113年2月", "rate": "年利率 6%", "freq": "每月", "per": "8000", "status": "本息償還", "note": "", "remain": "220000"},
+  {"id": "d3", "who": "self", "name": "", "creditor": "勞工紓困貸款（臺灣銀行）", "kind": "勞工紓困貸款", "total": "100000", "reason": "疫情期間生活費", "date": "110年6月", "rate": "年利率 1.845%", "freq": "每月", "per": "1800", "status": "本息償還", "note": "", "remain": "40000"},
+  {"id": "d4", "who": "self", "name": "", "creditor": "阿姨 林美玉", "kind": "親友借款", "total": "50000", "reason": "早餐店前期設備", "date": "115年3月", "rate": "無息", "freq": "不定期", "per": "0", "status": "未還", "note": "開店後每月還 2,000 元", "remain": "50000"}
+ ],
+ "st": {
+  "inc": {"sub": {"amt": "3000", "note": "兒童津貼", "before": ""}, "salary": {"amt": "25000", "note": "先生的薪資", "before": ""}, "other": {"amt": "0", "note": "", "before": ""}},
+  "home": {"food": {"amt": "15000", "note": "", "before": ""}, "cloth": {"amt": "1000", "note": "", "before": ""}, "house": {"amt": "12000", "note": "房租", "before": ""}, "trans": {"amt": "3000", "note": "", "before": ""}, "edu": {"amt": "6000", "note": "補習費", "before": ""}, "fun": {"amt": "1000", "note": "", "before": ""}, "tel": {"amt": "1500", "note": "", "before": ""}, "med": {"amt": "1000", "note": "", "before": ""}, "ins": {"amt": "3000", "note": "", "before": ""}, "repay": {"amt": "12800", "note": "信用卡、勞工紓困貸款、汽機車貸款", "before": ""}, "save": {"amt": "2000", "note": "", "before": ""}, "other": {"amt": "0", "note": "", "before": ""}},
+  "biz": {"rent": {"amt": "18000", "note": "", "before": ""}, "staff": {"amt": "0", "note": "", "before": ""}, "util": {"amt": "4000", "note": "", "before": ""}, "gas": {"amt": "2500", "note": "", "before": ""}, "comm": {"amt": "600", "note": "", "before": ""}, "repay": {"amt": "0", "note": "", "before": ""}, "other": {"amt": "1000", "note": "清潔費", "before": ""}},
+  "margin": "55", "days": "26", "price": "75", "special": false},
+ "fc": {"past": {"label": "115年9月", "a": "98000", "b": "28000", "c": "45000", "d": "0", "e": "26100", "f": "58300", "repay": "0"}, "notes": ["9 月颱風休息 3 天", "購買冷凍櫃與煎台，一次性支出", "", ""]},
+ "owned": [
+  {"id": "o1", "item": "煎台", "price": "12000", "qty": "1", "paid": "paid", "unpaid": ""},
+  {"id": "o2", "item": "冷藏櫃", "price": "18000", "qty": "1", "paid": "inst", "unpaid": "6000"}
+ ],
+ "buy": [
+  {"id": "b1", "item": "雙門冷凍櫃", "use": "存放冷凍食材，減少每天採買次數", "spec": "4 尺 雙門", "price": "32000", "qty": "1", "when": "115年11月", "pay": "once", "periods": "", "perPay": "", "source": "大同廚具行（新店）", "quote": true},
+  {"id": "b2", "item": "營業用煎台", "use": "增加出餐速度", "spec": "3 尺 不鏽鋼", "price": "15000", "qty": "1", "when": "115年11月", "pay": "inst", "periods": "6", "perPay": "2500", "source": "網路商城", "quote": true}
+ ],
+ "funds": [{"id": "f1", "item": "招牌與菜單看板", "price": "8000", "qty": "1", "when": "115年11月", "note": "店面招牌更新"}],
+ "work": [
+  {"id": "w1", "item": "食材進貨", "monthly": "30000", "qty": "1", "months": "3", "note": "開店前 3 個月食材週轉"},
+  {"id": "w2", "item": "工讀生薪資", "monthly": "12000", "qty": "1", "months": "3", "note": "早上 6～10 點備料與收銀"}
+ ],
+ "loan": {"amount": "150000", "years": "5", "grace": "no", "monthly": "2800", "dest": "ctbc", "bank": "中國信託商業", "branch": "新店"},
+ "coach": {"ops": "4", "tech": "3"},
+ "gen": {"plan": "", "attach": ""},
+ "_forecast": [
+  {"label": "115年10月", "a": "105000", "b": "28000", "rate": "45", "d": "35000", "e": "26100", "f": "58300", "repay": "0", "written": ""},
+  {"label": "115年11月", "a": "112000", "b": "28000", "rate": "45", "d": "0", "e": "26100", "f": "58300", "repay": "0", "written": ""},
+  {"label": "115年12月", "a": "118000", "b": "28000", "rate": "45", "d": "0", "e": "26100", "f": "58300", "repay": "0", "written": ""}
+ ]
+}

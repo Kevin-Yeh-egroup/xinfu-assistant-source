@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant" data-edition="__EDITION__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#FFF4EA">
+<title>__PAGE_TITLE__</title>
+<meta name="description" content="__PAGE_DESC__">
+<meta property="og:title" content="__PAGE_TITLE__">
+<meta property="og:description" content="__PAGE_DESC__">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Ccircle cx=%2720%27 cy=%2720%27 r=%2718%27 fill=%27%23FFF4EA%27 stroke=%27%23C7402D%27 stroke-width=%273%27/%3E%3Cpath d=%27M13 20.5l5 5 9-10%27 fill=%27none%27 stroke=%27%23C7402D%27 stroke-width=%273.4%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body data-role="none">
+<div class="app">
+<aside class="side">
+<div class="brand"><span class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17.5"/><circle cx="20" cy="20" r="13.5"/><path d="M14 20.5l4 4 8-9"/></svg></span><span class="brand-text"><strong>創業貸款準備助手</strong><span id="edLabel">信扶專案</span></span></div>
+<nav class="nav" aria-label="主要功能">
+<a href="#/overview" data-route="overview" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="lbl">總覽</span></a>
+<a href="#/docs" data-route="docs" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1z"/><path d="M8 5H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="m9 13.5 2 2 4-4.5"/></svg><span class="lbl">繳交資料</span><span class="count" id="navDocs"></span></a>
+<a href="#/issues" data-route="issues" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg><span class="lbl">需修改事項</span><span class="count" id="navIssues"></span></a>
+<a href="#/tools" data-route="tools" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/><path d="m8 10.6 1.9 1.9 3.3-3.4"/></svg><span class="lbl">檢核工具</span></a>
+<a href="#/plan" data-route="plan" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9.5 12.5h6M9.5 16h4"/></svg><span class="lbl"><span class="lbl-l">計畫書與附件</span><span class="lbl-s">計畫書</span></span></a>
+<a href="#/tasks" data-route="tasks" data-for="guide"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="1.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg><span class="lbl">待辦與紀錄</span><span class="count" id="navTasks"></span></a>
+<a href="#/rv" data-route="rv" data-for="reviewer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2h8.5A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="lbl">審查案件</span><span class="count" id="navRv"></span></a>
+<a href="#/notes" data-route="notes" data-for="reviewer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="m11.5 11 .9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg><span class="lbl">AI 審核注意事項</span></a>
+<a href="#/catalog" data-route="catalog" data-for="reviewer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1z"/><path d="M8 5H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4"/></svg><span class="lbl">文件與審查重點</span></a>
+</nav>
+<div class="side-foot">
+<p class="savestate" id="saveState" role="status">資料保存在此瀏覽器</p>
+<div class="side-actions"><button type="button" data-act="export">備份</button><button type="button" data-act="import">還原</button></div>
+<button type="button" class="linkbtn" data-act="privacy">保存與隱私說明</button>
+</div>
+</aside>
+<main class="main">
+<div id="maintBar" class="maintbar" hidden></div>
+<header class="top">
+<div class="modebar">
+<div class="seg" role="group" aria-label="動撥階段">
+<button type="button" data-act="mode" data-mode="first" aria-pressed="true">首次動撥</button>
+<button type="button" data-act="mode" data-mode="later" aria-pressed="false">第 2～5 次動撥</button>
+</div>
+<label class="roundsel" id="roundWrap" hidden>本次是<select id="roundSel" aria-label="第幾次動撥"><option value="2">第 2 次</option><option value="3">第 3 次</option><option value="4">第 4 次</option><option value="5">第 5 次</option></select></label>
+<span class="casechip" id="caseChip"></span>
+</div>
+<div class="topright">
+<button type="button" id="undoBtn" class="undo" data-act="undo" hidden>復原</button>
+<button type="button" class="helpbtn" data-act="tour" aria-label="操作導覽"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.3-.9.8-.9 1.4v.4"/><path d="M12 17h.01"/></svg><span>導覽</span></button>
+<a class="postmark unset" id="postmark" href="#/overview" aria-label="寄達期限"></a>
+</div>
+</header>
+<div id="view"></div>
+<footer class="foot">
+<p>資料只存在這個瀏覽器。換電腦、換瀏覽器、清除瀏覽資料或使用無痕模式前，請先按「備份」。<span class="mobile-only savestate-m" id="saveStateM" role="status"></span></p>
+<button type="button" class="small mobile-only" data-act="export">備份進度</button>
+<button type="button" class="small mobile-only" data-act="import">還原備份</button>
+<a class="btn small" id="videoLink" href="#" target="_blank" rel="noopener" hidden>教學影片</a>
+<button type="button" class="small" data-act="privacy">保存與隱私</button>
+<button type="button" class="small" data-act="maint" data-for="reviewer">維護內容</button>
+<button type="button" class="small" data-act="gateChange" data-for="reviewer">變更通行碼</button>
+<button type="button" class="small danger" data-act="reset">清除此機進度</button>
+</footer>
+</main>
+</div>
+<section id="printReport" class="print-report" aria-hidden="true"></section>
+<div id="toast" role="status" aria-live="polite" hidden><span id="toastText"></span><button type="button" id="toastUndo" hidden>復原</button></div>
+<div id="tour" class="tour" hidden><div class="tour-hole" id="tourHole"></div><div class="tour-card" id="tourCard" role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourText"><p class="tour-step" id="tourStep"></p><h2 id="tourTitle"></h2><p id="tourText"></p><div class="tour-acts"><button type="button" class="quiet" data-act="tourEnd">略過</button><span class="tour-nav"><button type="button" data-act="tourPrev" id="tourPrev">上一步</button><button type="button" class="primary" data-act="tourNext" id="tourNext">下一步</button></span></div></div></div>
+<input id="importFile" type="file" accept="application/json,.json" hidden>
+<input id="xFile" type="file" accept="application/json,.json,.txt,.md,text/plain,text/markdown" hidden>
+<dialog id="imgDialog" class="imgdialog" aria-labelledby="imgDialogTitle"><div class="dhead"><h2 id="imgDialogTitle">範例圖片</h2><button type="button" data-act="closeDialog">關閉</button></div><div class="scroll"><img id="imgDialogImg" alt=""></div></dialog>
+<dialog id="summaryDialog" aria-labelledby="summaryTitle"><div class="dhead"><h2 id="summaryTitle">進度摘要</h2><button type="button" data-act="closeDialog">關閉</button></div><p class="hint" id="summaryHint">可貼到 LINE 或 Email 給顧問、公司窗口。內容包含個案名稱，請確認收件對象。</p><textarea id="summaryText" readonly rows="14" aria-label="摘要內容"></textarea><div class="actions" style="margin-top:12px"><button type="button" class="primary" data-act="copySummaryNow">複製</button></div></dialog>
+<dialog id="gateDialog" aria-labelledby="gateDialogTitle"><form data-form="gateChange" class="rvform"><div class="dhead"><h2 id="gateDialogTitle">變更審查通行碼</h2><button type="button" data-act="closeDialog">關閉</button></div><p class="hint">新的通行碼會放進一份新的「審查人員版」檔案。之後新開通的電腦要用新通行碼；已經開通的電腦不受影響。</p><label class="field">新的通行碼（至少 8 個字）<input name="code" type="password" minlength="8" maxlength="64" required autocomplete="new-password"></label><label class="field">再輸入一次<input name="code2" type="password" minlength="8" maxlength="64" required autocomplete="new-password"></label><p class="formerr" id="gateChangeErr" role="alert"></p><div class="actions"><button class="primary" type="submit">產生新的審查人員版</button><button type="button" data-act="closeDialog">取消</button></div></form></dialog>
+<dialog id="rvDialog" aria-labelledby="rvDialogTitle"><form data-form="rvCase" class="rvform"><div class="dhead"><h2 id="rvDialogTitle">新增審查案件</h2><button type="button" data-act="closeDialog">關閉</button></div><label class="field">個案（姓名或代號）<input name="caseName" maxlength="120" required autocomplete="off" placeholder="例如：王小明、A-0912"></label><label class="field">這次審查的是<select name="stage"><option value="first">首次動撥</option><option value="r2">第 2 次動撥</option><option value="r3">第 3 次動撥</option><option value="r4">第 4 次動撥</option><option value="r5">第 5 次動撥</option></select></label><input type="hidden" name="id" value=""><div class="actions"><button class="primary" type="submit">建立</button><button type="button" data-act="closeDialog">取消</button></div></form></dialog>
+<dialog id="privacyDialog" aria-labelledby="privacyTitle"><h2 id="privacyTitle">你的資料如何保存</h2><ul>
+<li>填寫內容不會上傳：沒有分析追蹤，也不載入外部字型或程式。網頁版只在打開時下載頁面本身。</li>
+<li>內容存在這個瀏覽器的本機儲存空間，沒有加密。共用電腦或同一個瀏覽器設定檔的人可能看得到。</li>
+<li>分享網址或 HTML 檔不會帶出你的填寫內容。別人打開後，資料存在他自己的瀏覽器。</li>
+<li>「檢核工具」貼上的表格或選擇的 Excel 檔，只在頁面上讀取，不會保存。關閉頁面就清除。</li>
+<li>「計畫書與附件」填的姓名、電話、地址和財務數字，跟其他進度一樣存在這個瀏覽器；身分證字號和銀行帳號不保存，只用在當次產生的檔案。產生的 Word、Excel 檔含個人資料，請上傳到審查事件，不要用 LINE 傳。</li>
+<li>備份檔、需修改清單、修改回覆、進度摘要和列印的報告都含有填寫內容，請比照個資妥善保管。</li>
+<li>用 AI 協助審查時，AI 服務會讀到你放進資料夾的文件；請依公司規定的帳號使用，只放這個案子的文件。</li>
+<li>換了網址、檔案位置或瀏覽器，就看不到原本的進度：請在原本的地方按「備份」，再到新的地方按「還原」。</li>
+</ul><button type="button" class="primary" data-act="closeDialog">知道了</button></dialog>
+<script id="contentData" type="application/json">__CONTENT_JSON__</script>
+<script id="tplData" type="application/json">__TPL_JSON__</script>
+<script>
+/*__JS__*/
+</script>
+</body>
+</html>

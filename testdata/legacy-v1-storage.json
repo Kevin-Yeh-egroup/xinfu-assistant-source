@@ -1,0 +1,356 @@
+{
+ "version": 2,
+ "caseName": "舊版個案乙",
+ "program": "",
+ "dueDate": "2026-11",
+ "meetingNotes": "舊版會議紀錄",
+ "flows": [
+  true,
+  false,
+  true,
+  false,
+  false,
+  false
+ ],
+ "writing": [
+  {
+   "text": "舊版草稿內容",
+   "done": true
+  },
+  {
+   "text": "",
+   "done": false
+  },
+  {
+   "text": "",
+   "done": false
+  },
+  {
+   "text": "",
+   "done": false
+  },
+  {
+   "text": "",
+   "done": false
+  },
+  {
+   "text": "",
+   "done": false
+  },
+  {
+   "text": "",
+   "done": false
+  }
+ ],
+ "docs": [
+  {
+   "id": "ref-7",
+   "name": "進案前營運狀態",
+   "method": "系統欄位",
+   "sourceRow": 7,
+   "kind": "operation",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "started",
+   "note": ""
+  },
+  {
+   "id": "ref-9",
+   "name": "信扶專案經濟弱勢家庭處遇計畫表(未貸款案)",
+   "method": "公司影本",
+   "sourceRow": 9,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "na",
+   "note": ""
+  },
+  {
+   "id": "ref-10",
+   "name": "產品試吃(用)",
+   "method": "核銷紀錄",
+   "sourceRow": 10,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-11",
+   "name": "Infocenter個案資訊欄位更新",
+   "method": "系統欄位",
+   "sourceRow": 11,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": true,
+   "status": "missing",
+   "note": ""
+  },
+  {
+   "id": "ref-12",
+   "name": "前置會談事件送審",
+   "method": "系統事件",
+   "sourceRow": 12,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-13",
+   "name": "審查事件開立",
+   "method": "系統事件",
+   "sourceRow": 13,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-14",
+   "name": "信扶專案報名資料表",
+   "method": "紙本",
+   "sourceRow": 14,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-15",
+   "name": "信扶專案輔導同意書簽署正本",
+   "method": "紙本",
+   "sourceRow": 15,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-16",
+   "name": "創業者自我盤點表(影本)",
+   "method": "電子檔/紙本",
+   "sourceRow": 16,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-17",
+   "name": "小老闆輔導需求調查表(影本)",
+   "method": "電子檔/紙本",
+   "sourceRow": 17,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-18",
+   "name": "信扶專案小老闆儲蓄激勵方案約定書簽署正本",
+   "method": "紙本",
+   "sourceRow": 18,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-19",
+   "name": "是否完成專案課程參與6小時",
+   "method": "系統欄位",
+   "sourceRow": 19,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-21",
+   "name": "★信扶專案創業計畫書(共3頁)",
+   "method": "電子檔/手寫紙本",
+   "sourceRow": 21,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-22",
+   "name": "★最近一個月帳務資料:每月各項累積總表、收支彙整表",
+   "method": "電子檔",
+   "sourceRow": 22,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-23",
+   "name": "★信扶專案創業計畫書附件-債務現況盤點表",
+   "method": "電子檔/手寫紙本",
+   "sourceRow": 23,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "completed",
+   "note": "舊版備註：已請個案補"
+  },
+  {
+   "id": "ref-24",
+   "name": "金融機構債權人清冊正本",
+   "method": "紙本",
+   "sourceRow": 24,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-25",
+   "name": "★信扶專案創業計畫書附件-營運結構試算表",
+   "method": "電子檔/手寫紙本",
+   "sourceRow": 25,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-26",
+   "name": "★信扶專案創業計畫書附件-營運財務預估分析表",
+   "method": "電子檔/手寫紙本",
+   "sourceRow": 26,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-27",
+   "name": "★信扶專案創業計畫書附件-資金需求/設備購買表",
+   "method": "電子檔/手寫紙本",
+   "sourceRow": 27,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-28",
+   "name": "估價單",
+   "method": "電子檔/紙本",
+   "sourceRow": 28,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-29",
+   "name": "福利身分證明文件正(影)本",
+   "method": "紙本",
+   "sourceRow": 29,
+   "kind": "check",
+   "allowNA": true,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-30",
+   "name": "同住人口現戶全戶紙本戶籍謄本(三個月內詳細記事版)正本",
+   "method": "紙本",
+   "sourceRow": 30,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-31",
+   "name": "國民身分證影本",
+   "method": "紙本",
+   "sourceRow": 31,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-32",
+   "name": "信扶專案創業輔導團推薦表",
+   "method": "電子檔",
+   "sourceRow": 32,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  },
+  {
+   "id": "ref-33",
+   "name": "信扶專案信用資料查詢同意書",
+   "method": "個案送交至中信銀行",
+   "sourceRow": 33,
+   "kind": "check",
+   "allowNA": false,
+   "allowMissing": false,
+   "status": "pending",
+   "note": ""
+  }
+ ],
+ "review": {
+  "notes": "舊版審查紀錄"
+ },
+ "legacyDocs": [],
+ "infocenterCompletion": {
+  "contact": true,
+  "personal": false
+ },
+ "tasks": [
+  {
+   "id": "t1",
+   "text": "確認審查繳交項目與最新計畫格式",
+   "date": "",
+   "done": false
+  },
+  {
+   "id": "t2",
+   "text": "整理資金用途及對應的報價或估算依據",
+   "date": "",
+   "done": false
+  },
+  {
+   "id": "t3",
+   "text": "預留送件前核對與修改的時間",
+   "date": "",
+   "done": false
+  },
+  {
+   "id": "mv4qmiserqscrme",
+   "text": "舊版待辦",
+   "date": "2026-10-20",
+   "done": false
+  }
+ ]
+}
