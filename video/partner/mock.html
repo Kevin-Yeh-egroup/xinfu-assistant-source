@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>夥伴修改篇：示意畫面</title>
+<!-- 教學影片「夥伴修改篇」用的示意畫面（不是真的 Codex 或 GitHub，只用來說明步驟）。
+     由 video/capture-partner.js 逐一切換狀態並截圖。 -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden;font-family:"Noto Sans CJK TC","Noto Sans TC",sans-serif;color:#1F2328;background:#fff}
+.ico{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-.15em}
+.hidden{display:none!important}
+mark{background:#FFF1C9;color:inherit;border-radius:4px;padding:0 3px;box-shadow:0 0 0 1.5px #F2C14E inset}
+/* ---------- Codex（示意） ---------- */
+.cx{display:grid;grid-template-columns:268px 1fr;height:900px}
+.cx-side{background:#F6F6F7;border-right:1px solid #E6E6E9;padding:18px 14px;display:flex;flex-direction:column;gap:6px}
+.cx-brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;padding:4px 8px 14px}
+.cx-brand i{width:30px;height:30px;border-radius:9px;background:#1F2328;color:#fff;display:grid;place-items:center;font-style:normal;font-size:16px}
+.cx-new{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:15px;color:#1F2328}
+.cx-new.on{background:#fff;box-shadow:0 0 0 1px #E1E1E5}
+.cx-h{margin:16px 8px 6px;font-size:12.5px;color:#6E7179;font-weight:600;letter-spacing:.04em}
+.cx-proj{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;font-size:14.5px}
+.cx-proj.on{background:#E9EAEE;font-weight:600}
+.cx-proj small{display:block;font-size:12px;color:#6E7179;font-weight:400}
+.cx-main{display:flex;flex-direction:column;height:900px;min-width:0}
+.cx-top{height:58px;border-bottom:1px solid #EEEEF1;display:flex;align-items:center;gap:10px;padding:0 26px;font-size:14px;color:#41454D}
+.cx-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:#F2F3F5;font-size:13.5px;color:#30343B}
+.cx-chip.wt{background:#E8F3EC;color:#24613A}
+.cx-body{flex:1;overflow:hidden;padding:26px 64px 10px;display:flex;flex-direction:column;gap:18px}
+.cx-empty{margin:auto;text-align:center;color:#6E7179}
+.cx-empty b{display:block;font-size:26px;color:#1F2328;margin-bottom:10px;font-weight:700}
+.msg-me{align-self:flex-end;max-width:820px;background:#F2F3F5;border-radius:18px 18px 6px 18px;padding:16px 20px;font-size:15.5px;line-height:1.62;white-space:pre-wrap}
+.msg-ai{align-self:flex-start;max-width:900px;display:flex;gap:14px}
+.msg-ai .av{flex:none;width:32px;height:32px;border-radius:50%;background:#1F2328;color:#fff;display:grid;place-items:center;font-size:15px}
+.msg-ai .tx{font-size:16px;line-height:1.7;white-space:pre-wrap;padding-top:3px}
+.msg-ai .tx .ok{color:#1F7A3D;font-weight:700}
+.msg-ai .tx code,.msg-ai .tx .url{font-family:"Noto Sans Mono CJK TC","DejaVu Sans Mono",monospace;font-size:14.5px;background:#F2F3F5;border-radius:6px;padding:1px 6px}
+.work{display:flex;flex-direction:column;gap:8px;font-size:15px;color:#41454D;padding-top:4px}
+.work .row{display:flex;align-items:center;gap:10px}
+.work .row i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:13px}
+.work .row.done i{background:#E3F2E8;color:#1F7A3D}
+.work .row.run i{border:2.5px solid #C9CBD1;border-top-color:#1F2328}
+.work .row.wait{color:#9A9DA4}
+.work .row.wait i{border:2px dashed #D3D5DA}
+.cx-comp{margin:8px 64px 26px;border:1px solid #DADBE0;border-radius:18px;padding:14px 18px 12px;box-shadow:0 8px 24px -14px rgba(0,0,0,.25);background:#fff}
+.cx-comp .in{min-height:44px;max-height:330px;overflow:hidden;font-size:15px;line-height:1.6;color:#1F2328;white-space:pre-wrap}
+.cx-comp .in.ph{color:#9A9DA4}
+.cx-comp .bar{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;color:#6E7179}
+.cx-comp .send{margin-left:auto;width:36px;height:36px;border-radius:50%;background:#1F2328;color:#fff;display:grid;place-items:center;font-size:17px}
+.cx-comp .send.off{background:#D5D6DB}
+.openbtn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 16px;border-radius:10px;border:1px solid #D5D6DB;font-size:14.5px;background:#fff}
+/* 開啟資料夾對話框 */
+.dlg-wrap{position:absolute;inset:0;background:rgba(30,32,38,.28);display:grid;place-items:center}
+.dlg{width:720px;background:#fff;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.45);overflow:hidden}
+.dlg h3{font-size:17px;padding:16px 22px;border-bottom:1px solid #EEE}
+.dlg .path{margin:16px 22px 6px;padding:10px 14px;border-radius:9px;background:#F4F5F7;font-family:"Noto Sans Mono CJK TC",monospace;font-size:14px}
+.dlg .list{margin:6px 22px 0;border:1px solid #EEE;border-radius:9px}
+.dlg .list div{padding:10px 14px;font-size:14.5px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #F2F2F2}
+.dlg .list div.sel{background:#E9F0FF}
+.dlg .acts{display:flex;justify-content:flex-end;gap:10px;padding:16px 22px}
+.dlg .acts span{padding:8px 18px;border-radius:9px;border:1px solid #D5D6DB;font-size:14.5px}
+.dlg .acts span.pri{background:#1F2328;color:#fff;border-color:#1F2328}
+/* ---------- GitHub（示意） ---------- */
+.gh-top{height:64px;background:#24292F;color:#fff;display:flex;align-items:center;gap:16px;padding:0 28px;font-size:15px}
+.gh-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.gh-logo i{width:32px;height:32px;border-radius:50%;background:#fff;color:#24292F;display:grid;place-items:center;font-style:normal;font-size:15px;font-weight:900}
+.gh-search{flex:1;max-width:420px;height:34px;border-radius:7px;border:1px solid #57606A;color:#9DA5AE;display:flex;align-items:center;padding:0 12px;font-size:14px}
+.gh-av{margin-left:auto;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F7B267,#F4845F);display:grid;place-items:center;font-weight:800;color:#fff;font-size:15px}
+.signup{display:grid;grid-template-columns:1fr 1fr;height:900px}
+.signup .l{background:linear-gradient(160deg,#1B1F3B,#2D2350);color:#fff;padding:120px 80px}
+.signup .l h1{font-size:44px;line-height:1.25;font-weight:800}
+.signup .l p{margin-top:18px;font-size:18px;color:#C8CBE0;line-height:1.6}
+.signup .r{padding:140px 110px}
+.signup .r h2{font-size:30px;font-weight:700}
+.signup .r .sub{margin-top:8px;color:#57606A;font-size:15px}
+.gbtn{margin-top:34px;height:52px;border:1px solid #D0D7DE;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:17px;font-weight:600}
+.gbtn i{width:24px;height:24px;border-radius:50%;border:2px solid #4285F4;display:grid;place-items:center;font-style:normal;font-size:12px;color:#4285F4;font-weight:900}
+.or{margin:26px 0;display:flex;align-items:center;gap:14px;color:#8C959F;font-size:14px}
+.or:before,.or:after{content:"";flex:1;height:1px;background:#D8DEE4}
+.fld{height:46px;border:1px solid #D0D7DE;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#8C959F;font-size:15px;margin-top:12px}
+.menu{position:absolute;right:24px;top:70px;width:300px;background:#fff;border:1px solid #D0D7DE;border-radius:12px;box-shadow:0 18px 40px -16px rgba(0,0,0,.35);padding:10px 0;color:#1F2328}
+.menu .who{display:flex;gap:12px;align-items:center;padding:10px 16px 14px;border-bottom:1px solid #EAEEF2}
+.menu .who b{display:block;font-size:16px}
+.menu .who small{color:#57606A;font-size:13px}
+.menu div.it{padding:9px 16px;font-size:14.5px;color:#30363D}
+.gh-home{padding:40px 80px;color:#57606A;font-size:16px}
+.gh-home h2{color:#1F2328;font-size:26px;margin-bottom:12px}
+/* PR */
+.gh-top{position:relative;z-index:2}
+.pr{padding:24px 80px 0;position:relative}
+.pr .repo{font-size:15px;color:#57606A;margin-bottom:12px}
+.pr .repo b{color:#0969DA;font-weight:600}
+.pr h1{font-size:28px;font-weight:600;line-height:1.3}
+.pr h1 span{color:#6E7781;font-weight:400}
+.pr .st{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14.5px;color:#57606A}
+.pr .st b{color:#1F2328}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;background:#6E7781;color:#fff;font-weight:600;font-size:14px}
+.pr .tabs{display:flex;gap:26px;border-bottom:1px solid #D0D7DE;margin-top:16px;font-size:14.5px;color:#57606A}
+.pr .tabs span{padding:10px 2px}
+.pr .tabs span.on{color:#1F2328;font-weight:600;border-bottom:2px solid #FD8C73}
+.pr .cols{display:grid;grid-template-columns:1fr 240px;gap:34px;margin-top:18px}
+.box{border:1px solid #D0D7DE;border-radius:10px;overflow:hidden;background:#fff}
+.box .hd{background:#F6F8FA;border-bottom:1px solid #D0D7DE;padding:9px 16px;font-size:14px;color:#57606A}
+.box .hd b{color:#1F2328}
+.box .bd{padding:12px 18px;font-size:15px;line-height:1.65}
+.dl{display:grid;grid-template-columns:84px 1fr;gap:4px 16px}
+.dl dt{font-weight:700;color:#1F2328}
+.checks{margin-top:12px;display:flex;gap:28px;align-items:center;padding:10px 16px;border:1px solid #D0D7DE;border-radius:10px;font-size:14.5px}
+.checks .ok{color:#1A7F37;font-weight:800;margin-right:6px}
+.side h5{font-size:13px;color:#57606A;margin:4px 0 6px}
+.side p{font-size:14px;color:#1F2328;margin-bottom:16px}
+.cmt{margin-top:12px}
+.cmt .ta{height:214px;padding:14px 16px;font-size:15px;color:#1F2328}
+.cmt .ta .ph{color:#8C959F}
+.shot{width:560px;border:1px solid #D0D7DE;border-radius:8px;overflow:hidden;margin-top:8px}
+.shot img{display:block;width:100%}
+.cmt .ft{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid #D0D7DE;font-size:13.5px;color:#57606A}
+.cmt .ft .btn{margin-left:auto;padding:7px 18px;border-radius:8px;background:#1F883D;color:#fff;font-weight:600;font-size:14.5px}
+.posted .bd{height:262px}
+/* 訊息（示意） */
+.im{display:grid;grid-template-columns:300px 1fr;height:900px;background:#F4F5F7}
+.im .l{background:#fff;border-right:1px solid #E5E7EB;padding:20px}
+.im .l .c{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px}
+.im .l .c.on{background:#EEF4FF}
+.im .l .c i{width:42px;height:42px;border-radius:50%;background:#C7D7F5;display:grid;place-items:center;font-style:normal;font-weight:800;color:#2B4C8C}
+.im .r{display:flex;flex-direction:column}
+.im .hd{height:66px;background:#fff;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;padding:0 28px;font-size:18px;font-weight:700}
+.im .bd{flex:1;padding:40px 50px;display:flex;flex-direction:column;gap:16px}
+.bub{max-width:760px;padding:16px 20px;border-radius:18px;font-size:17px;line-height:1.65;white-space:pre-wrap}
+.bub.me{align-self:flex-end;background:#DCEBFF;border-bottom-right-radius:6px}
+.bub.ot{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:0 0 0 1px #E5E7EB}
+.bub .lk{color:#0B57D0;text-decoration:underline}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const $ = s => document.querySelector(s);
+const U = 'anan-demo';           // 示範用的 GitHub 使用者名稱（虛構）
+const NAME = '安安';                // 示範用的姓名（虛構）
+const REPO = 'https://github.com/Kevin-Yeh-egroup/xinfu-assistant-source';
+const PR_URL = REPO + '/pull/12';
+const AFTER_IMG = 'after-thumb.png'; // 改好後的畫面縮圖（capture-partner.js 會先產生）
+
+const P1 = `我的 GitHub 使用者名稱：<mark>${U}</mark>
+請幫我用自己的 GitHub 帳號 Fork 並 Clone 這個公開 repo：${REPO}
+請直接執行：
+1. 用 gh auth status 確認已登入上面的 GitHub 帳號。
+2. 尚未登入時，只告訴我登入步驟並停止；不要索取密碼或驗證碼。
+3. Fork 到我的帳號；已經 Fork 過就沿用。
+4. Clone 我的 Fork 到「文件／Documents」裡的 Codex 資料夾。
+5. 同名資料夾已存在時不要覆寫或刪除；先檢查並沿用。
+6. origin 指向我的 Fork，upstream 指向原 repo。
+完成後告訴我完整資料夾路徑與 origin／upstream。不要修改程式、建立分支、push、merge 或部署。`;
+const P2 = `請確認目前專案是 xinfu-assistant-source。
+請先把原專案（upstream）最新的 main 同步到本機的 main，再從 main 建立新的 Codex Worktree，名稱：
+<mark>xinfu-${U}-按鈕文字</mark>
+完成後回覆 Worktree 完整路徑與起始分支。
+後續修改只在這個 Worktree 進行，不直接修改 main。
+現在不要修改程式、push、建立 PR、merge 或部署。
+若無法直接建立，請停止，只告訴我要在介面點哪個選項。`;
+const SUGG = `在哪裡：引導員版 →「計畫書與附件」→ 最後一段「核對與產生」
+現在：按鈕寫「產生計畫書」「產生附件」
+希望：改成「產生 Word 計畫書」「產生 Excel 附件」
+原因：社工比較清楚會拿到哪一種檔案`;
+const P3 = `請在目前 Worktree 依照以下建議修改「創業貸款準備助手」：
+<mark>${SUGG}</mark>
+請先閱讀 AGENTS.md，照裡面的規則修改。
+改完請執行 npm test；通過後在背景執行 npm run preview 啟動本機預覽，確認網址打得開再回傳。
+建議沒有提到的部分，請不要改動資料保存方式、審查通行碼、個資處理或網站設定。
+現在不要 push、建立 PR、merge 或部署。`;
+const P4 = `請只修正以下內容：
+<mark>按鈕文字太長，手機上會換行；請讓手機上也維持一行。</mark>
+完成後重新執行測試，並確認本機預覽已經更新（沒有在執行就重新啟動），再回傳網址。`;
+const P5 = `這版可以。請執行 /review，並照 AGENTS.md 檢查，回報：
+- 修改檔案
+- 測試結果
+- 尚待確認事項
+若檢查通過，請建立分支 <mark>codex/${U}-按鈕文字</mark> 並 commit；先不要 push。`;
+const P6 = `請使用我目前登入的 GitHub 帳號送出這次修改：
+1. 確認 origin 是我帳號下的 Fork，upstream 是原 repo。
+2. 將目前分支 push 到我的 Fork。
+3. 從我的 Fork 分支，對原 repo 的 main 建立 Draft PR：標題用中文寫清楚改了什麼；說明照 PR 範本每一欄填寫（「畫面」一欄寫「截圖貼在留言」），最後加上尚待確認事項。
+不要 merge，也不要部署。完成後回傳 PR 連結。`;
+
+const ico = n => ({
+  plus: '<svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  folder: '<svg class="ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  chat: '<svg class="ico" viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4z"/></svg>',
+  branch: '<svg class="ico" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 8v8M18 10c0 4-6 3-10 7"/></svg>',
+  up: '<svg class="ico" viewBox="0 0 24 24"><path d="M12 19V6M6 11l6-6 6 6"/></svg>',
+  clip: '<svg class="ico" viewBox="0 0 24 24"><path d="M16 7l-7.5 7.5a2.1 2.1 0 0 0 3 3L19 10a4.2 4.2 0 0 0-6-6l-8 8a6.3 6.3 0 0 0 9 9l6-6"/></svg>',
+}[n]);
+
+function codex({ proj = true, wt = '', msgs = [], comp = '', compPh = '要 Codex 幫你做什麼？', dialog = false, threads = [] }) {
+  const side = `<aside class="cx-side">
+    <div class="cx-brand"><i>C</i>Codex</div>
+    <div class="cx-new on" id="newchat">${ico('plus')} 新對話</div>
+    <div class="cx-h">專案</div>
+    ${proj ? `<div class="cx-proj on" id="proj">${ico('folder')}<span>xinfu-assistant-source<small>Documents\\Codex</small></span></div>` : `<div class="cx-proj">${ico('folder')}<span>Documents<small>尚未開啟專案資料夾</small></span></div>`}
+    ${threads.length ? '<div class="cx-h">對話</div>' + threads.map(t => `<div class="cx-new">${ico('chat')} ${t}</div>`).join('') : ''}
+  </aside>`;
+  const top = `<div class="cx-top">${proj ? `<span class="cx-chip">${ico('folder')} xinfu-assistant-source</span>` : '<span class="cx-chip">尚未開啟資料夾</span>'}${wt ? `<span class="cx-chip wt" id="wtchip">${ico('branch')} ${wt}</span>` : '<span class="cx-chip">Local</span>'}</div>`;
+  const body = msgs.length ? msgs.map(m => m.me ? `<div class="msg-me" id="${m.id || ''}">${m.me}</div>` : `<div class="msg-ai" id="${m.id || ''}"><div class="av">C</div><div class="tx">${m.ai}</div></div>`).join('') : (comp ? '' : `<div class="cx-empty"><b>今天要做什麼？</b>貼上操作說明裡的文字，Codex 就會開始做。</div>`);
+  const compHtml = `<div class="cx-comp" id="comp"><div class="in ${comp ? '' : 'ph'}" id="compin">${comp || compPh}</div><div class="bar">${ico('clip')} 附加　｜　${wt ? 'Worktree' : 'Local'}<span class="send ${comp ? '' : 'off'}" id="send">${ico('up')}</span></div></div>`;
+  const dlg = dialog ? `<div class="dlg-wrap"><div class="dlg" id="dlg"><h3>開啟資料夾</h3><div class="path">C:\\Users\\Anan\\Documents\\Codex</div><div class="list"><div>${ico('folder')} 我的其他專案</div><div class="sel" id="dlgsel">${ico('folder')} xinfu-assistant-source</div></div><div class="acts"><span>取消</span><span class="pri" id="dlgok">選擇資料夾</span></div></div></div>` : '';
+  return `<div class="cx">${side}<main class="cx-main">${top}<div class="cx-body" id="body">${body}</div>${compHtml}</main></div>${dlg}`;
+}
+const work = rows => `<div class="work">${rows.map(([s, t]) => `<div class="row ${s}"><i>${s === 'done' ? '✓' : ''}</i>${t}</div>`).join('')}</div>`;
+
+const R1 = `<span class="ok">完成了。</span>
+資料夾：<code>C:\\Users\\Anan\\Documents\\Codex\\xinfu-assistant-source</code>
+origin：github.com/<mark>${U}</mark>/xinfu-assistant-source（你的 Fork）
+upstream：github.com/Kevin-Yeh-egroup/xinfu-assistant-source
+沒有修改任何程式。下一步請在 Codex 開啟這個資料夾。`;
+const R2 = `<span class="ok">修改空間建好了。</span>
+名稱：<mark>xinfu-${U}-按鈕文字</mark>
+路徑：<code>C:\\Users\\Anan\\.codex\\worktrees\\xinfu-${U}-按鈕文字</code>
+起始分支：main（已同步原專案最新版本）
+之後的修改都只在這裡進行。`;
+const R3 = `<span class="ok">改好了，測試都通過。</span>
+修改：「產生計畫書」→「產生 Word 計畫書」、「產生附件」→「產生 Excel 附件」
+測試：基本功能 200/200、計畫書與附件 52/52 通過
+本機預覽：<mark class="url">http://127.0.0.1:8765</mark>
+審查人員版：http://127.0.0.1:8765/review（測試通行碼 TEST-CODE-2468）`;
+const R5 = `<span class="ok">檢查完成。</span>
+・修改檔案：src/plan.js、scripts/test_plan.js
+・測試結果：全部通過（200/200、52/52）
+・尚待確認：無
+已建立分支 <mark>codex/${U}-按鈕文字</mark> 並 commit，還沒有 push。`;
+const R6 = `<span class="ok">已用你的帳號送出草稿（Draft PR）。</span>
+<mark class="url">${PR_URL}</mark>
+沒有合併，也沒有部署。請把連結傳給 Kevin。`;
+
+const T_PREV = ['Fork＋Clone 準備助手'];
+const STATES = {
+  // 第 1 步
+  'c1-empty': () => codex({ proj: false }),
+  'c1-paste': () => codex({ proj: false, comp: P1 }),
+  'c1-work': () => codex({ proj: false, msgs: [{ me: P1 }, { ai: work([['done', '確認 GitHub 已登入：' + U], ['done', 'Fork 到你的帳號'], ['run', '下載到「文件 / Codex」資料夾…'], ['wait', '設定 origin / upstream']]) }] }),
+  'c1-done': () => codex({ proj: false, msgs: [{ me: P1, id: 'm1' }, { ai: R1, id: 'r1' }] }),
+  'c1-open': () => codex({ proj: false, msgs: [{ me: P1 }, { ai: R1, id: 'r1' }], dialog: true }),
+  // 第 2 步
+  'c2-empty': () => codex({ threads: T_PREV }),
+  'c2-paste': () => codex({ comp: P2, threads: T_PREV }),
+  'c2-done': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ me: P2 }, { ai: R2, id: 'r2' }] }),
+  // 第 3 步
+  'c3-paste': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ ai: R2 }], comp: P3 }),
+  'c3-work': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ me: P3 }, { ai: work([['done', '讀過 AGENTS.md 的規則'], ['done', '修改 src/plan.js 的兩個按鈕文字'], ['run', '執行測試（npm test）…'], ['wait', '啟動本機預覽（npm run preview）']]) }] }),
+  'c3-done': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ me: P3, id: 'm3' }, { ai: R3, id: 'r3' }] }),
+  // 不對再修
+  'c4-paste': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ ai: R3 }], comp: P4 }),
+  // 第 5、6 步
+  'c5-paste': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ ai: R3 }], comp: P5 }),
+  'c5-done': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ me: P5, id: 'm5' }, { ai: R5, id: 'r5' }] }),
+  'c6-paste': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ ai: R5 }], comp: P6 }),
+  'c6-done': () => codex({ wt: 'xinfu-' + U + '-按鈕文字', threads: T_PREV, msgs: [{ me: P6, id: 'm6' }, { ai: R6, id: 'r6' }] }),
+  // GitHub 註冊
+  'gh-signup': () => `<div class="signup"><div class="l"><h1>免費建立<br>GitHub 帳號</h1><p>（示意畫面）註冊時一律選<br>「Continue with Google」</p></div><div class="r"><h2>Create your free account</h2><p class="sub">Already have an account? Sign in</p><div class="gbtn" id="gbtn"><i>G</i>Continue with Google</div><div class="or">or</div><div class="fld">Email</div><div class="fld">Password</div><div class="fld">Username</div></div></div>`,
+  'gh-home': () => `<div class="gh-top"><div class="gh-logo"><i>GH</i>GitHub</div><div class="gh-search">Type / to search</div><div class="gh-av" id="av">A</div></div><div class="gh-home"><h2>Home</h2>（示意畫面）右上角的頭像，就是你的帳號。</div>`,
+  'gh-menu': () => STATES['gh-home']() + `<div class="menu" id="menu"><div class="who"><div class="gh-av" style="margin:0">A</div><div><small>Signed in as</small><b id="uname">${U}</b></div></div><div class="it">Your profile</div><div class="it">Your repositories</div><div class="it">Settings</div><div class="it">Sign out</div></div>`,
+  // PR 頁面
+  'pr': () => prPage('empty'),
+  'pr-pasted': () => prPage('pasted'),
+  'pr-posted': () => prPage('posted'),
+  // 傳給 Kevin
+  'im': () => `<div class="im"><div class="l"><div class="c on"><i>K</i><div><b>Kevin</b><br><small style="color:#6B7280">信扶專案</small></div></div></div><div class="r"><div class="hd">Kevin</div><div class="bd"><div class="bub me" id="tokevin">我已用自己的 GitHub 帳號開好 Draft PR：
+<span class="lk">${PR_URL}</span>
+改好的畫面截圖已經貼在 PR 留言。請 Kevin 審查並決定是否合併。</div><div class="bub ot hidden" id="kreply">收到，我來看。</div></div></div></div>`,
+  'im-reply': () => STATES['im']().replace('bub ot hidden', 'bub ot'),
+};
+function prPage(mode) {
+  const head = `<div class="gh-top"><div class="gh-logo"><i>GH</i>GitHub</div><div class="gh-search">Type / to search</div><div class="gh-av">A</div></div>`;
+  const shot = `<div class="shot"><img src="${AFTER_IMG}" alt=""></div>`;
+  const comment = mode === 'posted'
+    ? `<div class="box cmt posted" id="posted"><div class="hd"><b>${U}</b> commented just now</div><div class="bd">改好的畫面：${shot}</div></div>`
+    : `<div class="box cmt" id="cmt"><div class="hd"><b>Add a comment</b></div><div class="ta" id="ta">${mode === 'pasted' ? '改好的畫面：' + shot : '<span class="ph">Paste, drop, or click to add files</span>'}</div><div class="ft">${ico('clip')} Markdown is supported<span class="btn" id="cbtn">Comment</span></div></div>`;
+  return head + `<div class="pr"><div class="repo">Kevin-Yeh-egroup / <b>xinfu-assistant-source</b></div>
+  <h1 id="prt">按鈕改成「產生 Word 計畫書」「產生 Excel 附件」 <span>#12</span></h1>
+  <div class="st"><span class="badge" id="draft">Draft</span><span><b>${U}</b> wants to merge 1 commit into <b>main</b> from <b>${U}:codex/${U}-按鈕文字</b></span></div>
+  <div class="tabs"><span class="on">Conversation</span><span>Commits 1</span><span>Checks 2</span><span>Files changed 2</span></div>
+  <div class="cols"><div>
+    <div class="box" id="desc"><div class="hd"><b>${U}</b> opened this pull request</div><dl class="bd dl">
+      <dt>改了什麼</dt><dd>「核對與產生」的兩個按鈕，改成「產生 Word 計畫書」「產生 Excel 附件」</dd>
+      <dt>為什麼</dt><dd>社工比較清楚會拿到哪一種檔案</dd>
+      <dt>畫面</dt><dd>截圖貼在留言</dd>
+      <dt>測試</dt><dd>✓ npm test 全部通過（200/200、52/52）</dd>
+      <dt>尚待確認</dt><dd>無</dd></dl></div>
+    <div class="checks" id="checks"><span><span class="ok">✓</span>測試全部通過</span><span><span class="ok">✓</span>預覽網址已產生</span></div>
+    ${comment}
+  </div><div class="side"><h5>Reviewers</h5><p>Kevin-Yeh-egroup</p><h5>Labels</h5><p>None yet</p></div></div></div>`;
+}
+window.setState = name => { $('#root').innerHTML = STATES[name](); return true; };
+window.STATE_NAMES = Object.keys(STATES);
+</script>
+</body>
+</html>

@@ -15,6 +15,7 @@
 ```bash
 npm run build     # src/ → dist/（兩個單檔離線版）＋ site/（網站）；不需要安裝套件
 npm run serve     # 本機看網站版 http://127.0.0.1:8765 、/review
+npm run preview   # 改完看畫面：用測試通行碼另外建置並打開本機預覽（/review 輸入 TEST-CODE-2468）
 npm test          # 用測試通行碼建置到 .test-output/，跑 scripts/test.js 和 scripts/test_plan.js
 npm test -- plan  # 只跑名稱含 plan 的測試檔
 npm run shots     # 用虛構資料產生畫面截圖到 .test-output/（PR 附圖用）
@@ -46,7 +47,8 @@ npm run samples   # 用虛構個案產生範例 Word / Excel 到 .test-output/�
 ## PR
 
 - 一個 PR 做一件事，標題用中文寫清楚改了什麼。
-- **一定要附上改動畫面的截圖或錄影**（PR 範本有欄位）。可以用 `npm run serve` 打開本機網站自己截，或用 `npm run shots`。
+- **一定要附上改動畫面的截圖或錄影**（PR 範本有欄位）。可以用 `npm run preview` 打開本機網站自己截，或用 `npm run shots`。
+- 夥伴照 [docs/partner-guide.md](docs/partner-guide.md) 送來的是 Draft PR：截圖由夥伴貼在 PR 留言，PR 說明的「畫面」一欄寫「截圖貼在留言」即可。
 - 寫出測試結果（例如 `200/200、52/52 passed`）。
 - 合併到 `main` 就會上線，請等驗收後再合併。
 
@@ -54,4 +56,5 @@ npm run samples   # 用虛構個案產生範例 Word / Excel 到 .test-output/�
 
 - 換 Word / Excel 範本：`templates/README.md`。
 - 重錄教學影片：`video/README.md`。
+- 夥伴（社工）怎麼用 Codex 提出修改：`docs/partner-guide.md`。
 - `scripts/build_templates.py`、`scripts/build_xlsx_templates.py` 需要 Python 3、lxml、openpyxl、xlrd 和 LibreOffice，平常改功能用不到。

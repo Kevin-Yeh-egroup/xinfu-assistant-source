@@ -145,3 +145,28 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#2A1C15}
 .bub.ai .dots{display:inline-flex;gap:8px;margin-left:8px;vertical-align:middle}
 .bub.ai .dots i{width:11px;height:11px;border-radius:50%;background:#C79A7C}
 .bub.ai b{font-weight:900}
+
+/* ---------- pipeline (夥伴修改篇) ---------- */
+.pipe .fbg{position:absolute;inset:0;background:radial-gradient(1500px 950px at 50% 44%,#FFFAF4 0%,#FCEDE0 60%,#F4DAC4 100%)}
+.pipe .fsvg path{stroke-width:5}
+.pipe .fnode h3{font-size:46px}
+.pipe .fnode p{font-size:29px;color:#6B5547}
+.pback{position:absolute;left:0;top:0;display:flex;align-items:center;gap:10px;padding:11px 24px 12px 18px;border-radius:999px;background:#FFFDFA;color:#C7402D;font-size:29px;font-weight:800;white-space:nowrap;box-shadow:0 16px 34px -14px rgba(59,42,33,.45),0 0 0 2px rgba(199,64,45,.22)}
+.pback .ico{width:32px;height:32px;stroke-width:2.4}
+.pbadge{position:absolute;left:0;top:0;display:flex;align-items:center;gap:14px;padding:16px 32px 17px 24px;border-radius:999px;background:#2F6B3D;color:#fff;font-size:33px;font-weight:800;letter-spacing:.04em;white-space:nowrap;box-shadow:0 24px 50px -18px rgba(47,107,61,.6)}
+.pbadge .ico{width:38px;height:38px;stroke-width:2.2}
+.pbadge .pw{position:absolute;inset:0;border-radius:999px;border:3px solid rgba(79,138,91,.7)}
+
+/* ---------- suggestion card (夥伴修改篇) ---------- */
+.sugg .abg{position:absolute;inset:0;background:linear-gradient(160deg,#FBEBDD 0%,#F6E1CE 55%,#F1D7C1 100%)}
+.sg-shot{position:absolute;left:64px;border-radius:30px;background:#FFFCF8;overflow:hidden;box-shadow:0 50px 110px -40px rgba(74,50,38,.5),0 0 0 2px rgba(74,50,38,.06)}
+.sg-bar{height:62px;display:flex;align-items:center;gap:12px;padding:0 26px;font-size:25px;font-weight:700;color:#7A6456;background:#FBF4EE;border-bottom:2px solid #F3E4D6}
+.sg-bar .ico{width:28px;height:28px;color:#C7402D}
+.sg-crop{position:relative;margin:20px;overflow:hidden;border-radius:16px}
+.sg-crop img{position:absolute;max-width:none}
+.sg-hl{position:absolute;border-radius:16px;opacity:0;box-shadow:0 0 0 4px #F2A93B,0 0 0 12px rgba(242,169,59,.24),0 0 40px 8px rgba(242,169,59,.3)}
+.sg-card{position:absolute;left:1036px;top:150px;width:820px;padding:42px 44px 36px;border-radius:34px;background:#FFFFFF;box-shadow:0 50px 110px -40px rgba(74,50,38,.5),0 0 0 2px rgba(74,50,38,.06)}
+.sg-card h2{font-family:var(--serif);font-weight:900;font-size:50px;color:#3B2A21;letter-spacing:.06em;margin:0 0 22px 18px}
+.sg-row{display:flex;gap:22px;align-items:flex-start;padding:16px 18px;border-radius:20px;margin-top:6px}
+.sg-row .lb{flex:none;width:120px;text-align:center;padding:6px 0 7px;border-radius:999px;background:#FDEBC8;color:#8A5300;font-size:26px;font-weight:800;margin-top:3px}
+.sg-row .tx{font-size:31px;line-height:1.5;color:#3B2A21;font-weight:600;white-space:pre-line}

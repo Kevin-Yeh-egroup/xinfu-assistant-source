@@ -1,7 +1,7 @@
 """Combine rendered video + soundtrack into the final MP4 (loudness -16 LUFS, AAC 192k)."""
 import re, subprocess, sys
 name = sys.argv[1]
-title = {'guide': '創業貸款準備助手-教學影片-引導員篇', 'reviewer': '創業貸款準備助手-教學影片-審查人員篇'}[name]
+title = {'guide': '創業貸款準備助手-教學影片-引導員篇', 'reviewer': '創業貸款準備助手-教學影片-審查人員篇', 'partner': '創業貸款準備助手-教學影片-夥伴修改篇'}[name]
 wav, vid = f'out/{name}-audio.wav', f'out/{name}.mp4'
 r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', wav, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True)
 I = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', r.stderr)[-1])

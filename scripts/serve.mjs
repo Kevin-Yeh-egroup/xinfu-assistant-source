@@ -35,4 +35,8 @@ http.createServer((req, res) => {
   }
   res.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
   fs.createReadStream(f).pipe(res);
-}).listen(PORT, '127.0.0.1', () => console.log(`網站版：http://127.0.0.1:${PORT}/　審查人員版：http://127.0.0.1:${PORT}/review`));
+}).on('error', e => {
+  if (e.code === 'EADDRINUSE') console.error(`127.0.0.1:${PORT} 已經在使用中：可能已經有預覽在跑，直接打開網址即可；或先關掉舊的再執行。`);
+  else console.error(e.message);
+  process.exit(1);
+}).listen(PORT, '127.0.0.1', () => { if (!process.env.QUIET) console.log(`網站版：http://127.0.0.1:${PORT}/　審查人員版：http://127.0.0.1:${PORT}/review`); });

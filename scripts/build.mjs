@@ -23,7 +23,7 @@ const SITE = path.join(OUT, 'site');
 
 const JS_PARTS = ['planmodel.js', 'app.js', 'docgen.js', 'plan.js', 'review.js', 'tour.js', 'boot.js'];
 const FILES = { guide: '創業貸款準備助手-引導員版.html', reviewer: '創業貸款準備助手-審查人員版.html' };
-const VIDEOS = ['guide.mp4', 'reviewer.mp4'];
+const VIDEOS = ['guide.mp4', 'reviewer.mp4', 'partner-guide.mp4'];
 
 const read = f => fs.readFileSync(path.join(SRC, f), 'utf8');
 // 全部取代，且不解讀 $& 這類特殊字元（內容裡可能有 $）
