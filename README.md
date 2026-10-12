@@ -7,6 +7,8 @@
 
 推上 `main` 後，Vercel 會自動建置並更新網站（約 1 分鐘）。每個 PR 也會有自己的預覽網址，方便驗收。
 
+**夥伴想自己動手改**：照 [夥伴修改操作說明](docs/partner-guide.md) 做，或先看教學影片 [夥伴修改篇](https://xinfu-assistant.vercel.app/videos/partner-guide.mp4)（約 3 分鐘）。你說清楚想改什麼，Codex 幫你改和測試，Kevin 看過才上線。
+
 ## 這個工具怎麼運作
 
 - **兩個版本、同一份程式**：建置時依版本放進不同設定。審查人員版要先輸入通行碼開通。
@@ -31,7 +33,8 @@
 | `src/gate.json` | 審查通行碼的雜湊（不是通行碼本身） |
 | `scripts/` | 建置、本機預覽、測試、匯入內容、換通行碼 |
 | `testdata/` | 測試資料（全部虛構） |
-| `video/`、`videos/` | 教學影片的製作流程，以及網站上的兩支影片 |
+| `docs/` | 夥伴修改操作說明（圖文） |
+| `video/`、`videos/` | 教學影片的製作流程，以及網站上的三支影片 |
 
 ## 開始
 
@@ -43,6 +46,7 @@ npx playwright install chromium    # 測試用的瀏覽器
 
 npm run build    # 產生 dist/（兩個單檔離線版）和 site/（網站）
 npm run serve    # 在 http://127.0.0.1:8765 看網站版（/review 是審查人員版）
+npm run preview  # 改完看畫面：用測試通行碼建置並打開本機預覽（/review 輸入 TEST-CODE-2468）
 npm test         # 用測試通行碼另外建置一份，跑全部端對端測試
 ```
 

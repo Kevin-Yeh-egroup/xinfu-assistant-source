@@ -289,6 +289,71 @@
     return { el: root, seek };
   }
 
+  /* ---------- pipeline: who does what (夥伴修改篇) ---------- */
+  function mkPipe(sh) {
+    const p = sh.props, root = el('div', 'shot pipe'), Y = p.y || 400, R0 = 110;
+    let svg = '<div class="fbg"></div><svg class="fsvg" viewBox="0 0 1920 1080">';
+    p.arrows.forEach(a => {
+      const x0 = p.nodes[a.a].x + R0 + 22, x1 = p.nodes[a.b].x - R0 - 22, c = a.color || '#B98A6B';
+      svg += `<path class="pl" d="M${x0} ${Y} H${x1 - 4}" stroke="${c}" stroke-dasharray="13 15"/><path class="ph" d="M${x1 - 20} ${Y - 18} L${x1} ${Y} L${x1 - 20} ${Y + 18}" stroke="${c}"/>`;
+    });
+    if (p.back) {
+      const xa = p.nodes[p.back.a].x - 46, xb = p.nodes[p.back.b].x + 46, y0 = Y - R0 + 4, top = Y - 330;
+      svg += `<path class="pb" d="M${xa} ${y0} C${xa - 20} ${top}, ${xb + 20} ${top}, ${xb} ${y0}" stroke="#C7402D" stroke-dasharray="13 15"/><path class="pbh" d="M${xb - 19} ${y0 - 24} L${xb} ${y0} L${xb + 23} ${y0 - 16}" stroke="#C7402D"/>`;
+    }
+    svg += '</svg>';
+    svg += p.nodes.map(n => `<div class="fnode pn" style="left:${n.x - 150}px;top:${Y - R0}px"><div class="av">${ico(n.icon)}<span class="sub" style="background:${n.color}">${ico(n.badge)}</span></div><h3>${esc(n.title)}</h3><p>${esc(n.sub)}</p></div>`).join('');
+    if (p.back) svg += `<div class="pback" style="left:${(p.nodes[p.back.a].x + p.nodes[p.back.b].x) / 2}px;top:${Y - 262}px">${ico('back')}<span>${esc(p.back.label)}</span></div>`;
+    if (p.site) { const n = p.nodes[p.nodes.length - 1]; svg += `<div class="pbadge" style="left:${n.x}px;top:${Y + 318}px"><i class="pw"></i>${ico('home')}<span>${esc(p.site.label)}</span></div>`; }
+    root.innerHTML = svg;
+    const nodes = [...root.querySelectorAll('.pn')], lines = [...root.querySelectorAll('.pl')], heads = [...root.querySelectorAll('.ph')];
+    const pb = root.querySelector('.pb'), pbh = root.querySelector('.pbh'), pback = root.querySelector('.pback'), badge = root.querySelector('.pbadge'), pw = root.querySelector('.pw');
+    function seek(lt) {
+      nodes.forEach((n, i) => { const t0 = p.nodes[i].t, k = E.back(P(lt, t0, 0.65)); n.style.opacity = P(lt, t0, 0.3); n.style.transform = `scale(${lerp(0.72, 1, k)})`; });
+      lines.forEach((ln, i) => {
+        const t0 = p.arrows[i].t, d = E.io(P(lt, t0, 0.75));
+        ln.style.opacity = d > 0 ? 1 : 0; ln.style.clipPath = `inset(0 ${((1 - d) * 100).toFixed(2)}% 0 0)`;
+        ln.style.strokeDashoffset = -lt * 22;
+        heads[i].style.opacity = P(lt, t0 + 0.65, 0.2);
+      });
+      if (pb) {
+        const t0 = p.back.t, d = E.io(P(lt, t0, 1.1));
+        pb.style.opacity = d > 0 ? 1 : 0; pb.style.clipPath = `inset(0 0 0 ${((1 - d) * 100).toFixed(2)}%)`; pb.style.strokeDashoffset = lt * 22;
+        pbh.style.opacity = P(lt, t0 + 1.0, 0.2);
+        const kl = E.back(P(lt, t0 + 0.45, 0.6)); pback.style.opacity = P(lt, t0 + 0.45, 0.3); pback.style.transform = `translate(-50%,-50%) scale(${lerp(0.7, 1, kl)})`;
+      }
+      if (badge) {
+        const t0 = p.site.t, k = E.back(P(lt, t0, 0.7));
+        badge.style.opacity = P(lt, t0, 0.3); badge.style.transform = `translate(-50%,-50%) scale(${lerp(0.6, 1, k)})`;
+        const w = P(lt, t0 + 0.2, 1.3); pw.style.opacity = w > 0 && w < 1 ? (1 - w) * 0.75 : 0; pw.style.transform = `scale(${1 + E.out(w) * 0.45},${1 + E.out(w) * 1.1})`;
+      }
+    }
+    return { el: root, seek };
+  }
+
+  /* ---------- suggestion card next to a screenshot (夥伴修改篇) ---------- */
+  function mkSugg(sh) {
+    const p = sh.props, root = el('div', 'shot sugg'), c = p.crop, LW = p.lw || 780, s = LW / c[2], LH = Math.round(c[3] * s);
+    root.innerHTML = '<div class="abg"></div>'
+      + `<div class="sg-shot" style="width:${LW + 40}px;top:${p.shotTop || 300}px"><div class="sg-bar">${ico('home')}<span>${esc(p.shotTitle)}</span></div><div class="sg-crop" style="width:${LW}px;height:${LH}px"><img src="assets/${p.img}.png" style="width:${(G.IW * s).toFixed(1)}px;left:${(-c[0] * s).toFixed(1)}px;top:${(-c[1] * s).toFixed(1)}px">`
+      + p.marks.map(m => `<div class="sg-hl" style="left:${((m.r[0] - c[0]) * s - 9).toFixed(1)}px;top:${((m.r[1] - c[1]) * s - 9).toFixed(1)}px;width:${(m.r[2] * s + 18).toFixed(1)}px;height:${(m.r[3] * s + 18).toFixed(1)}px"></div>`).join('') + '</div></div>'
+      + '<div class="sg-card"><h2>' + esc(p.title) + '</h2>' + p.rows.map(r => `<div class="sg-row"><span class="lb">${esc(r.label)}</span><span class="tx">${esc(r.text)}</span></div>`).join('') + '</div>';
+    const shotEl = root.querySelector('.sg-shot'), card = root.querySelector('.sg-card'), rows = [...root.querySelectorAll('.sg-row')], hls = [...root.querySelectorAll('.sg-hl')];
+    function seek(lt) {
+      const kl = E.out(P(lt, 0.1, 0.9)); shotEl.style.opacity = kl; shotEl.style.transform = `translateY(${((1 - kl) * 34).toFixed(2)}px)`;
+      const kc = E.out(P(lt, 0.35, 0.9)); card.style.opacity = kc; card.style.transform = `translateX(${((1 - kc) * 60).toFixed(2)}px)`;
+      rows.forEach((r, i) => {
+        const t0 = p.rows[i].t, k = E.out(P(lt, t0, 0.6));
+        r.style.opacity = 0.0001 + k; r.style.transform = `translateX(${((1 - k) * 30).toFixed(2)}px)`;
+        const t1 = p.rows[i + 1] ? p.rows[i + 1].t : (p.lastHold || t0 + 2.6);
+        const act = P(lt, t0, 0.4) * (1 - P(lt, t1, 0.5));
+        r.style.background = `rgba(253,235,200,${(0.6 * act).toFixed(3)})`;
+      });
+      hls.forEach((h, i) => { const m = p.marks[i], k = E.io(P(lt, m.t0, 0.45)) * (1 - E.io(P(lt, m.t1, 0.45))); h.style.opacity = k; h.style.transform = `scale(${lerp(1.08, 1, E.out(P(lt, m.t0, 0.5))).toFixed(4)})`; });
+    }
+    return { el: root, seek };
+  }
+
   /* ---------- AI assistant illustration ---------- */
   function mkAI(sh) {
     const p = sh.props, root = el('div', 'shot ai');
@@ -349,7 +414,7 @@
   }
 
   /* ---------- build shots ---------- */
-  const MK = { screen: mkScreen, title: mkTitle, chapter: mkChapter, flow: mkFlow, ai: mkAI, end: mkEnd };
+  const MK = { screen: mkScreen, title: mkTitle, chapter: mkChapter, flow: mkFlow, ai: mkAI, end: mkEnd, pipe: mkPipe, sugg: mkSugg };
   const SHOTS = D.shots.map(sh => { const S = MK[sh.type](sh); S.sh = sh; stage.appendChild(S.el); return S; });
 
   /* ---------- captions ---------- */

@@ -821,6 +821,19 @@ async function openR(page, url = RVF) { await page.goto(url); if (await page.loc
   check('X3 繳交資料的名稱不重複顯示 ★', names.length > 10 && names.every(n => !n.trim().startsWith('★')), names.filter(n => n.trim().startsWith('★')).join('|'));
   await ctx.close();
 
+  // Y: 網站影片與夥伴修改工具（只看檔案，不開瀏覽器）
+  const buildSrc = fs.readFileSync(path.join(ROOT, 'scripts', 'build.mjs'), 'utf8');
+  const vids = JSON.parse(((buildSrc.match(/const VIDEOS = (\[[^\]]*\])/) || [])[1] || '[]').replace(/'/g, '"'));
+  const vidOk = v => { const f = path.join(ROOT, 'videos', v); return fs.existsSync(f) && fs.statSync(f).size < 25 * 1024 * 1024; };
+  check('Y1 網站上的三支教學影片都在 videos/，每支小於 25 MB', vids.length === 3 && vids.includes('partner-guide.mp4') && vids.every(vidOk), vids.filter(v => !vidOk(v)).join(',') || vids.join(','));
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const devSrc = fs.readFileSync(path.join(ROOT, 'scripts', 'dev.mjs'), 'utf8');
+  check('Y2 npm run preview 存在，且預設用測試通行碼建置', /scripts\/dev\.mjs/.test(pkg.scripts.preview || '') && devSrc.includes("'TEST-CODE-2468'") && devSrc.includes("'.test-output'"));
+  const guideMd = fs.readFileSync(path.join(ROOT, 'docs', 'partner-guide.md'), 'utf8');
+  const imgs = [...guideMd.matchAll(/\]\((images\/[^)]+)\)/g)].map(m => m[1]);
+  check('Y3 夥伴修改操作說明的圖片都在 docs/images/', imgs.length >= 5 && imgs.every(f => fs.existsSync(path.join(ROOT, 'docs', f))), imgs.filter(f => !fs.existsSync(path.join(ROOT, 'docs', f))).join(','));
+  check('Y4 夥伴修改操作說明的指令都存在（preview、test）', guideMd.includes('npm run preview') && guideMd.includes('npm test') && !!pkg.scripts.preview && !!pkg.scripts.test);
+
   await browser.close();
   check('Z1 全程沒有 JavaScript 錯誤', errors.length === 0, errors.join(' | '));
   const failed = results.filter(r => !r.ok);

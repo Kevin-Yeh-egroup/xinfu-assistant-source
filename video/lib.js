@@ -28,6 +28,8 @@ function union(...refs) {
   return [x0, y0, x1 - x0, y1 - y0];
 }
 const R = r => (r == null ? null : typeof r === 'string' ? box(r) : r);
+// box in screenshot pixels (no window bar), for custom shots that place a screenshot themselves
+function raw(ref) { const b = box(ref); return [b[0], b[1] - BAR, b[2], b[3]]; }
 
 // camera view (s, tx, ty) that frames a box
 function view(ref, o = {}) {
@@ -79,6 +81,8 @@ class Shot {
     this.cur.t1 = this.t; this.cur = null;
     return this;
   }
+  // wait until the current caption has been on screen long enough to read (it stays up)
+  untilCap(extra = 0) { if (this.cur) this.t = Math.max(this.t, this.cur.t0 + this.cur.min); this.t += extra; return this; }
   sound(name, o = {}) { this.sfx.push({ t: this.t + (o.dt || 0), name, ...o }); return this; }
   sfxAt(name, t, o = {}) { this.sfx.push({ t, name, ...o }); return this; }
   end(hold = 0.6) { this.t += hold; const hadCap = !!this.cur; this.capEnd(); this.dur = Math.max(this.t + (hadCap ? 0.8 : 0), this.minDur); return this; }
@@ -161,4 +165,4 @@ function assemble(shots, meta) {
   return { ...meta, W: SW, H: SH, dur, shots: out, caps, sfx: sfx.sort((a, b) => a.t - b.t), leaks, geo: { IW, IH, BAR, CW, CH, S0, TOP, FULL }, warn };
 }
 
-module.exports = { Screen, Custom, assemble, box, union, view, readTime, FULL, S0, SW, SH, BAR };
+module.exports = { Screen, Custom, assemble, box, raw, union, view, readTime, FULL, S0, SW, SH, BAR };

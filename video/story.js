@@ -1,5 +1,5 @@
-// Two storyboards: 引導員篇 and 審查人員篇. Plain words for frontline social workers.
-const { Screen, Custom, assemble, union } = require('./lib');
+// Storyboards: 引導員篇、審查人員篇、夥伴修改篇. Plain words for frontline social workers.
+const { Screen, Custom, assemble, union, raw } = require('./lib');
 
 const title = (sub, tag) => new Custom('title', { props: { kick: '信扶專案', main: '創業貸款準備助手', sub, tag }, tin: { type: 'cut', d: 0 } })
   .sound('stamp', { dt: 1.95 }).sound('swell', { dt: 0.2 }).wait(6.0);
@@ -292,4 +292,169 @@ function reviewer() {
   return assemble(shots, { name: 'reviewer', fadeOut: 1.6 });
 }
 
-module.exports = { guide, reviewer };
+/* ============================== 夥伴修改篇 ============================== */
+// 畫面：video/partner/mock.html 的示意畫面（capture-partner.js 截圖）＋本機預覽的準備助手（虛構示範資料）
+function partner() {
+  const RING = '創業貸款準備助手　★　夥伴修改篇　★　';
+  const CX = 'Codex（示意畫面）', GH = 'GitHub（示意畫面）';
+  const shots = [title('夥伴修改篇', '你提建議，AI 動手，Kevin 把關')];
+
+  // 開場：誰做什麼
+  const I = new Custom('pipe', { tin: { type: 'leak', d: 1.2 }, props: {
+    y: 440,
+    nodes: [
+      { x: 330, icon: 'user', badge: 'writing', color: '#F2A93B', title: '你', sub: '說清楚想改什麼', t: 0.9 },
+      { x: 770, icon: 'spark', badge: 'edit', color: '#3D7C8A', title: 'Codex', sub: '動手修改、自己測試', t: 2.5 },
+      { x: 1210, icon: 'user', badge: 'check', color: '#4F8A5B', title: '你', sub: '看過畫面再送出', t: 6.4 },
+      { x: 1650, icon: 'user', badge: 'shield', color: '#C7402D', title: 'Kevin', sub: '看過才上線', t: 11.0 }],
+    arrows: [{ a: 0, b: 1, t: 1.8 }, { a: 1, b: 2, t: 5.8 }, { a: 2, b: 3, t: 10.4 }],
+    back: { a: 2, b: 1, t: 7.6, label: '不對再改' },
+    site: { t: 12.6, label: '網站自動更新' } } });
+  I.sfxAt('pop', 0.95).sfxAt('whoosh', 1.8, { soft: true }).sfxAt('pop', 2.55).sfxAt('whoosh', 5.8, { soft: true }).sfxAt('pop', 6.45)
+    .sfxAt('whoosh', 7.6, { soft: true }).sfxAt('pop', 8.1).sfxAt('whoosh', 10.4, { soft: true }).sfxAt('pop', 11.05).sfxAt('chime', 12.7)
+    .wait(0.8).cap('你說清楚想改什麼，Codex 幫你動手')
+    .wait(4.75).cap('改好先給你看，不對就再改')
+    .wait(4.0).cap('滿意了才送出，Kevin 看過才上線', '改錯也不會影響大家')
+    .wait(5.6).end(0.6);
+  shots.push(I);
+
+  shots.push(chapter('1', '準備', '只要做一次', RING));
+
+  const G = new Screen({ title: GH, chip: { n: '1', t: '準備' }, tin: { type: 'zoom', d: 1.0 } });
+  G.show('gh-signup', 0).wait(0.6)
+    .cap('先免費註冊 GitHub', '電腦也要先裝好 Codex')
+    .cam('gh-signup.gbtn', { zoom: 1.5, cy: 0.45, d: 1.8 }).wait(1.0)
+    .cap('一律點「Continue with Google」', '選自己要用來協作的 Google 帳號', { min: 5.6 })
+    .spot('gh-signup.gbtn', { pad: 14 }).move('gh-signup.gbtn', { d: 1.1, ox: 0.32 }).wait(0.8).click().wait(0.8).unspot({ d: 0.5 })
+    .cap('密碼和驗證碼，只在這些畫面輸入', '不要貼給 Codex').away({ d: 1.1 }).wait(1.2)
+    .full({ d: 1.2 })
+    .show('gh-home', 0.5)
+    .cap('完成後點右上角的頭像', '記下自己的使用者名稱')
+    .cam(union('gh-menu.menu', 'gh-menu.av'), { zoom: 1.9, cx: 0.58, cy: 0.42, d: 1.4 })
+    .move('gh-home.av', { d: 1.1 }).click().show('gh-menu', 0.25).wait(0.5)
+    .spot('gh-menu.uname', { pad: 12 }).tag('gh-menu.uname', '記下這個名字', { side: 'left', tone: 'honey', dt: 0.3, d: 2.8 }).away({ d: 1.0 }).wait(2.0)
+    .unspot().end(0.6);
+  shots.push(G);
+
+  const C1 = new Screen({ title: CX, chip: { n: '1', t: '準備' }, tin: { type: 'zoom', d: 1.0 } });
+  C1.show('c1-empty', 0).wait(0.5)
+    .cap('打開 Codex，開一個新對話')
+    .cam('c1-empty.newchat', { zoom: 2.0, cx: 0.36, cy: 0.36, d: 1.3 }).spot('c1-empty.newchat', { dt: 0.4, pad: 10 })
+    .move('c1-empty.newchat', { d: 1.1, ox: 0.3 }).click().wait(0.5).unspot({ d: 0.4 })
+    .full({ d: 1.1 })
+    .cap('貼上操作說明「第 1 步」的文字', '先把使用者名稱換成你的')
+    .move('c1-empty.comp', { d: 1.0, ox: 0.3 }).click().show('c1-paste', 0.3).sound('paste')
+    .cam('c1-paste.comp', { cy: 0.46, d: 1.3 }).wait(0.3)
+    .spot('c1-paste.mark', { pad: 10 }).tag('c1-paste.mark', '換成你的', { side: 'top', tone: 'honey', dt: 0.3, d: 2.6 }).wait(2.6).unspot()
+    .move('c1-paste.send', { d: 0.9 }).click().show('c1-work', 0.35).full({ d: 1.1 })
+    .cap('Codex 會把準備助手，複製一份到你的電腦').away({ d: 1.0 }).untilCap(0.3)
+    .show('c1-done', 0.4).cam(union('c1-done.m', 'c1-done.r'), { cy: 0.45, d: 1.3 }).spot('c1-done.code', { dt: 0.6, pad: 8 }).wait(1.2)
+    .cap('打開它回覆的這個資料夾', '按「開啟資料夾」，選 xinfu-assistant-source').wait(0.9)
+    .unspot({ d: 0.4 }).show('c1-open', 0.45).cam('c1-open.dlg', { zoom: 1.5, cy: 0.44, d: 1.2 })
+    .move('c1-open.sel', { d: 1.0, ox: 0.3 }).click().wait(0.4).move('c1-open.ok', { d: 0.9 }).click().wait(0.4)
+    .away({ d: 1.0 }).end(0.4);
+  shots.push(C1);
+
+  shots.push(chapter('2', '修改', '說清楚，再看清楚', RING));
+
+  const C2 = new Screen({ title: CX, chip: { n: '2', t: '修改' }, tin: { type: 'zoom', d: 1.0 } });
+  C2.show('c2-empty', 0).wait(0.5)
+    .cap('每次要改，先開一個「修改空間」')
+    .wait(1.0).move('c2-empty.comp', { d: 1.1, ox: 0.3 }).click().show('c2-paste', 0.3).sound('paste')
+    .cam('c2-paste.comp', { cy: 0.46, d: 1.3 })
+    .cap('貼上「第 2 步」，填好名字和這次的主題')
+    .spot('c2-paste.mark', { dt: 0.3, pad: 10 }).tag('c2-paste.mark', '名字＋主題', { side: 'top', tone: 'honey', dt: 0.6, d: 2.6 }).wait(2.8).unspot()
+    .move('c2-paste.send', { d: 0.9 }).click().show('c2-done', 0.4).full({ d: 1.0 }).wait(0.3)
+    .cap('在修改空間裡怎麼改，都不會影響大家')
+    .cam('c2-done.wt', { zoom: 2.2, cx: 0.45, cy: 0.32, d: 1.3 }).spot('c2-done.wt', { dt: 0.4, pad: 10 })
+    .tag('c2-done.wt', '你的修改空間', { side: 'bottom', tone: 'sage', dt: 0.7, d: 2.6 }).away({ d: 1.0 }).wait(2.2)
+    .unspot().end(0.6);
+  shots.push(C2);
+
+  const crop = [840, 462, 1420, 548];
+  const SG = new Custom('sugg', { tin: { type: 'zoom', d: 1.0 }, props: {
+    img: 'pv-before', crop, lw: 900, shotTop: 318, shotTitle: '準備助手：計畫書與附件', title: '把建議說清楚',
+    rows: [
+      { label: '在哪裡', text: '引導員版 →「計畫書與附件」\n→「核對與產生」', t: 1.3 },
+      { label: '現在', text: '按鈕寫「產生計畫書」「產生附件」', t: 3.0 },
+      { label: '希望', text: '改成「產生 Word 計畫書」\n　　「產生 Excel 附件」', t: 4.7 },
+      { label: '原因', text: '社工比較清楚會拿到哪一種檔案', t: 6.4 }],
+    lastHold: 8.6,
+    marks: [{ r: raw('pv-before.head'), t0: 1.45, t1: 2.95 }, { r: raw('pv-before.genPlan'), t0: 3.1, t1: 6.2 }, { r: raw('pv-before.genAttach'), t0: 3.1, t1: 6.2 }] } });
+  SG.sfxAt('tick', 1.35).sfxAt('tick', 3.05).sfxAt('tick', 4.75).sfxAt('tick', 6.45)
+    .wait(0.6).cap('接著，用四句話把建議說清楚', '在哪裡、現在、希望、原因')
+    .wait(5.4).cap('寫得越清楚，Codex 改得越準')
+    .wait(3.6).end(0.8);
+  shots.push(SG);
+
+  const C3 = new Screen({ title: CX, chip: { n: '2', t: '修改' }, tin: { type: 'zoom', d: 1.0 } });
+  C3.show('c3-paste', 0).wait(0.4)
+    .cap('把四句話放進「第 3 步」，貼給 Codex')
+    .cam('c3-paste.comp', { cy: 0.46, d: 1.3 }).spot('c3-paste.mark', { dt: 0.5, pad: 10 }).wait(2.6).unspot()
+    .move('c3-paste.send', { d: 1.0 }).click().show('c3-work', 0.4).full({ d: 1.1 })
+    .cap('Codex 會照規則修改，再自己測試一遍', '確認原本的功能沒有被改壞').away({ d: 1.0 }).untilCap(0.3)
+    .show('c3-done', 0.4).cam(union('c3-done.m', 'c3-done.r'), { cy: 0.44, d: 1.3 })
+    .cap('改好了，它會給你一個網址')
+    .spot('c3-done.url', { dt: 0.5, pad: 8 }).tag('c3-done.url', '點開來看', { side: 'right', tone: 'honey', dt: 0.8, d: 2.4 }).wait(2.6)
+    .unspot().end(0.5);
+  shots.push(C3);
+
+  const PV = new Screen({ title: '本機預覽　http://127.0.0.1:8765', chip: { n: '2', t: '修改' }, tin: { type: 'zoom', d: 1.0 } });
+  PV.show('pv-after', 0).wait(0.5)
+    .cap('打開網址，自己點點看', '這個畫面只有你的電腦看得到')
+    .cam('pv-after.cards', { zoom: 1.45, cy: 0.44, d: 1.8 }).wait(0.5)
+    .spot(union('pv-after.genPlan', 'pv-after.genAttach'), { pad: 14 }).tag('pv-after.genPlan', '改好了', { side: 'top', tone: 'sage', dt: 0.4, d: 2.6 }).wait(2.6).unspot()
+    .cap('哪裡不對，貼上「第 4 步」再請它修正').wait(0.6)
+    .cap('滿意了，就截圖存起來', '鍵盤按 Win＋Shift＋S')
+    .spot('pv-after.cards', { dt: 0.6, pad: 18 }).sound('click', { dt: 1.1 }).tag('pv-after.cards', '截圖存起來', { side: 'top', tone: 'cocoa', dt: 1.1, d: 2.4, sound: false }).wait(2.8)
+    .unspot().full({ d: 1.2 }).end(0.4);
+  shots.push(PV);
+
+  shots.push(chapter('3', '送交', 'Kevin 看過才上線', RING));
+
+  const C5 = new Screen({ title: CX, chip: { n: '3', t: '送交' }, tin: { type: 'zoom', d: 1.0 } });
+  C5.show('c5-paste', 0).wait(0.4)
+    .cap('送出前，請 Codex 再檢查一次', '貼上「第 5 步」')
+    .cam('c5-paste.comp', { cy: 0.47, d: 1.3 }).wait(2.2)
+    .move('c5-paste.send', { d: 1.0 }).click().show('c5-done', 0.4)
+    .cam(union('c5-done.m', 'c5-done.r'), { cy: 0.45, d: 1.3 })
+    .cap('看清楚改了哪些地方、測試有沒有通過')
+    .spot('c5-done.r', { dt: 0.5, pad: 12 }).away({ d: 1.0 }).untilCap(0.2).unspot()
+    .show('c6-paste', 0.45).cam('c6-paste.comp', { cy: 0.47, d: 1.3 })
+    .cap('沒問題，就用你的帳號送出「草稿」', '貼上「第 6 步」').wait(1.2)
+    .move('c6-paste.send', { d: 1.0 }).click().show('c6-done', 0.4)
+    .cam(union('c6-done.m', 'c6-done.r'), { cy: 0.45, d: 1.3 })
+    .cap('它會回傳一個連結', '送出的是草稿，還不會上線')
+    .spot('c6-done.url', { dt: 0.5, pad: 8 }).tag('c6-done.url', '草稿連結', { side: 'right', tone: 'honey', dt: 0.8, d: 2.4 }).away({ d: 1.0 }).wait(1.8)
+    .unspot().end(0.5);
+  shots.push(C5);
+
+  const PR = new Screen({ title: GH, chip: { n: '3', t: '送交' }, tin: { type: 'zoom', d: 1.0 } });
+  PR.show('pr', 0).wait(0.5)
+    .cap('打開連結，把第 4 步存的截圖拖進留言框', '再按「Comment」')
+    .cam('pr.cmt', { zoom: 1.4, cy: 0.45, d: 1.5 }).wait(0.8)
+    .fileIn('改好的畫面.png', 'pr.ta', { d: 1.6, sub: '第 4 步存的截圖' }).show('pr-pasted', 0.3).wait(1.0)
+    .move('pr-pasted.cbtn', { d: 1.0 }).click().show('pr-posted', 0.4).wait(0.4)
+    .cap('Kevin 一看就知道改了什麼')
+    .spot('pr-posted.shot', { pad: 10 }).away({ d: 1.0 }).wait(1.8).unspot()
+    .end(0.5);
+  shots.push(PR);
+
+  const IM = new Screen({ title: '傳訊息給 Kevin（示意畫面）', chip: { n: '3', t: '送交' }, tin: { type: 'zoom', d: 1.0 } });
+  IM.show('im', 0).wait(0.4)
+    .cap('最後，把連結傳給 Kevin')
+    .cam('im.msg', { zoom: 1.5, cy: 0.42, d: 1.5 }).spot('im.msg', { dt: 0.6, pad: 12 }).untilCap(0.2).unspot()
+    .show('im-reply', 0.4).sound('pop')
+    .cap('Kevin 合併後，網站約 1 分鐘自動更新', '下次要改別的，從「第 2 步」開始')
+    .cam(union('im-reply.msg', 'im-reply.reply'), { zoom: 1.3, cy: 0.42, d: 1.5 }).wait(4.3)
+    .full({ d: 1.5 }).end(0.8);
+  shots.push(IM);
+
+  shots.push(ending({ head: '記住這三件事', brandSub: '夥伴修改篇', line: '密碼和驗證碼只在 Google、GitHub 的畫面輸入；不貼真實個案資料', tiles: [
+    { icon: 'folder', title: '在修改空間改', text: '每次都從第 2 步開始' },
+    { icon: 'check', title: '先看畫面再送出', text: '自己點過，截圖貼上' },
+    { icon: 'shield', title: 'Kevin 把關才上線', text: '你送出的是草稿' }] }, 9.0));
+  return assemble(shots, { name: 'partner', fadeOut: 1.6 });
+}
+
+module.exports = { guide, reviewer, partner };

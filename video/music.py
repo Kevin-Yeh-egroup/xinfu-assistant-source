@@ -1,6 +1,6 @@
 """Original soundtrack for the tutorial videos: felt-piano arpeggios, soft pad, warm bass,
 sparse bell melody, plus gentle UI sound effects placed from the storyboard events.
-usage: python3 music.py <guide|reviewer>   -> out/<name>-audio.wav (48 kHz stereo float)"""
+usage: python3 music.py <guide|reviewer|partner>   -> out/<name>-audio.wav (48 kHz stereo float)"""
 import json, sys, math
 import numpy as np
 from scipy.signal import fftconvolve, butter, sosfilt
@@ -10,7 +10,7 @@ SR = 48000
 NAME = sys.argv[1]
 EV = json.load(open(f'out/{NAME}-events.json', encoding='utf8'))
 DUR = EV['dur']
-rng = np.random.default_rng(20261009 if NAME == 'guide' else 20261010)
+rng = np.random.default_rng({'guide': 20261009, 'reviewer': 20261010}.get(NAME, 20261012))
 
 def mfreq(m):
     return 440.0 * 2 ** ((m - 69) / 12)
@@ -103,6 +103,19 @@ if NAME == 'guide':
     ]
     TONIC = (41, [53, 60, 64, 67, 69, 72, 76], [53, 57, 60, 64, 67])
     BPM = 74
+elif NAME == 'partner':  # G major, a little slower and softer
+    BARS = [
+        (43, [55, 62, 66, 71, 74], [55, 59, 62, 66], 79),   # Gmaj7
+        (42, [54, 57, 62, 66, 69], [54, 57, 62, 66], 78),   # D/F#
+        (40, [55, 59, 64, 67, 71], [52, 55, 59, 62], 76),   # Em7
+        (36, [55, 59, 64, 67, 71], [48, 55, 59, 64], 74),   # Cmaj7
+        (47, [55, 59, 62, 67, 71], [55, 59, 62, 67], 74),   # G/B
+        (45, [57, 60, 64, 67, 72], [52, 55, 60, 64], 72),   # Am7
+        (36, [55, 60, 62, 67, 72], [48, 55, 60, 62], 76),   # Cadd9
+        (38, [57, 62, 67, 69, 74], [50, 57, 62, 67], 74),   # Dsus4 -> D
+    ]
+    TONIC = (43, [55, 59, 62, 66, 67, 71, 74], [55, 59, 62, 66, 69])
+    BPM = 66
 else:
     BARS = [
         (38, [57, 62, 66, 69, 73], [50, 54, 57, 61], 78),   # Dmaj7
@@ -154,6 +167,8 @@ for b in range(NB):
             m = arp[idx]
             if last and i >= 4 and NAME == 'guide':  # sus4 resolves to the 3rd
                 m = 76 if m == 77 else m
+            if last and i >= 4 and NAME == 'partner':
+                m = 78 if m == 79 else m
             vel = (0.62 if i % 4 == 0 else 0.5 if i % 2 == 0 else 0.42) + rng.uniform(-0.04, 0.04)
             place(dry, felt_piano(m, 2.6, vel), t0 + i * BEAT / 2 + rng.uniform(-0.006, 0.006), pan=(m - 64) / 28)
     # bell melody in section B
@@ -244,8 +259,9 @@ def sfx(name, soft=False):
         thud = sosfilt(butter(2, 1100, 'low', fs=SR, output='sos'), noise(n)) * np.exp(-t / 0.025)
         return (body + 0.5 * thud) * 0.32
     if name == 'chime':
-        a = bell(84 if NAME == 'guide' else 86, 1.8, 0.5)
-        b = bell(91 if NAME == 'guide' else 93, 1.6, 0.35)
+        ca, cb = {'guide': (84, 91), 'partner': (83, 90)}.get(NAME, (86, 93))
+        a = bell(ca, 1.8, 0.5)
+        b = bell(cb, 1.6, 0.35)
         out = np.zeros(len(a) + int(0.13 * SR)); out[:len(a)] += a; out[int(0.13 * SR):int(0.13 * SR) + len(b)] += b
         return out * 0.14
     if name in ('whoosh', 'swell'):
